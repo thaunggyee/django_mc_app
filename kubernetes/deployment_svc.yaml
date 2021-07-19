@@ -1,0 +1,36 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcapp
+  labels:
+    app: mcapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcapp
+  template:
+    metadata:
+      labels:
+        app: mcapp
+    spec:
+      containers:
+      - name: mcapp
+        image: tho861998/mcapp:1.1
+        ports:
+        - containerPort: 8080
+ 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcapp
+spec:
+  selector:
+    app: mcapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
